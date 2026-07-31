@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Trash2 } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { PlaceholderArt } from "./ProductCard";
 
 export default function CartDrawer() {
   const { cart, removeFromCart, total, isOpen, setIsOpen } = useCart();
@@ -79,8 +80,14 @@ export default function CartDrawer() {
                     border: "1px solid rgba(201,168,76,0.25)",
                     boxShadow: "0 4px 12px rgba(74,10,18,0.05)"
                   }}>
-                    <img src={item.image} alt={item.name}
-                         style={{ width: "64px", height: "64px", objectFit: "cover", borderRadius: "12px" }} />
+                    <div style={{ width: "64px", height: "64px", flexShrink: 0, borderRadius: "12px", overflow: "hidden" }}>
+                      {item.image ? (
+                        <img src={item.image} alt={item.name}
+                             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      ) : (
+                        <PlaceholderArt name={item.name} />
+                      )}
+                    </div>
                     <div style={{ flex: 1 }}>
                       <p style={{ color: "#4A0A12", fontWeight: 800, fontSize: "14px" }}>{item.name}</p>
                       <p style={{ color: "#C9A84C", fontWeight: 900, fontSize: "14px", marginTop: "4px" }}>

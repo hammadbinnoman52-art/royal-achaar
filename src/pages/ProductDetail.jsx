@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ShoppingCart, ArrowLeft, Check } from "lucide-react";
 import { products } from "../data/products";
 import { useCart } from "../context/CartContext";
+import { PlaceholderArt } from "../components/ProductCard";
 import { useState } from "react";
 
 export default function ProductDetail() {
@@ -31,7 +32,7 @@ export default function ProductDetail() {
   };
 
   return (
-    <main style={{ paddingTop: "80px", background: "#FDF6E3", minHeight: "100vh" }}>
+    <main style={{ background: "#FDF6E3", minHeight: "100vh" }}>
 
       {/* Breadcrumb */}
       <div style={{ background: "#4A0A12", padding: "16px 24px" }}>
@@ -69,8 +70,15 @@ export default function ProductDetail() {
               boxShadow: "0 40px 80px rgba(74,10,18,0.15)",
               aspectRatio: "1/1", position: "relative"
             }}>
-              <img src={product.image} alt={product.name}
-                   style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              {product.image ? (
+                <img src={product.image} alt={product.name}
+                     style={{
+                       width: "100%", height: "100%", objectFit: "cover",
+                       objectPosition: product.imagePosition || "center"
+                     }} />
+              ) : (
+                <PlaceholderArt name={product.name} />
+              )}
               {product.badge && (
                 <div style={{
                   position: "absolute", top: "20px", left: "20px",
@@ -202,8 +210,18 @@ export default function ProductDetail() {
                       border: "1px solid rgba(201,168,76,0.2)",
                       boxShadow: "0 8px 24px rgba(74,10,18,0.06)"
                     }}>
-                    <img src={p.image} alt={p.name}
-                         style={{ width: "100%", height: "200px", objectFit: "cover" }} />
+                    <div style={{ height: "200px" }}>
+                      {p.image ? (
+                        <img src={p.image} alt={p.name} loading="lazy"
+                             style={{
+                               width: "100%", height: "100%", display: "block",
+                               objectFit: "cover",
+                               objectPosition: p.imagePosition || "center"
+                             }} />
+                      ) : (
+                        <PlaceholderArt name={p.name} />
+                      )}
+                    </div>
                     <div style={{ padding: "20px" }}>
                       <p style={{ color: "#C9A84C", fontSize: "10px", fontWeight: 900,
                                   textTransform: "uppercase", letterSpacing: "0.3em" }}>{p.category}</p>

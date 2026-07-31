@@ -25,7 +25,7 @@ export default function Contact() {
   };
 
   return (
-    <main style={{ paddingTop: "80px", background: "#FDF6E3", minHeight: "100vh" }}>
+    <main style={{ background: "#FDF6E3", minHeight: "100vh" }}>
 
       {/* Banner */}
       <div style={{

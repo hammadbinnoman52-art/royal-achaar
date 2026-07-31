@@ -60,7 +60,7 @@ export default function Footer() {
                         textTransform: "uppercase", letterSpacing: "0.3em", marginBottom: "20px" }}>
               Products
             </p>
-            {["Achar", "Desi Ghee", "Wild Honey", "Bulk Orders"].map(item => (
+            {["Achar", "Desi Ghee", "Infused Honey", "Bulk Orders"].map(item => (
               <p key={item} style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px",
                                      fontWeight: 600, marginBottom: "12px" }}>
                 {item}

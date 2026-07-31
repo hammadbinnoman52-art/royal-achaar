@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <main style={{ paddingTop: "80px", background: "#FDF6E3" }}>
+    <main style={{ background: "#FDF6E3" }}>
 
       {/* Hero Banner */}
       <div style={{

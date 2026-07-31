@@ -1,88 +1,71 @@
 import { motion } from "framer-motion";
+import { Utensils, Soup, Layers, Award } from "lucide-react";
 
 const reasons = [
-  { icon: "🌿", title: "100% Natural",       desc: "No artificial colors, flavors, or preservatives. Just pure ingredients." },
-  { icon: "👩‍🍳", title: "Family Recipe",      desc: "Recipes perfected over 30 years, passed down through generations." },
-  { icon: "📦", title: "Fresh Packaging",    desc: "Vacuum-sealed jars that lock in flavor for months." },
-  { icon: "🚚", title: "Fast Delivery",      desc: "Dispatched within 24 hours across Pakistan via TCS & Leopards." },
-  { icon: "💰", title: "Wholesale Prices",   desc: "Bulk pricing available for retailers and distributors." },
-  { icon: "⭐", title: "50,000+ Customers",  desc: "Trusted by families across Lahore and all over Pakistan." },
+  {
+    Icon: Utensils,
+    title: "Premium Ingredients, Pure Taste",
+    desc: "We carefully select fresh fruits and vegetables and never use artificial flavors or chemicals — only pure, natural ingredients for authentic taste in every bite.",
+  },
+  {
+    Icon: Soup,
+    title: "Traditional Recipes with a Healthy Touch",
+    desc: "Our pickles are crafted using time-honored recipes that follow natural fermentation methods — delivering a perfect balance of flavor and digestive benefits.",
+  },
+  {
+    Icon: Layers,
+    title: "Prepared in Clean, Small Batches",
+    desc: "Each batch is made in a hygienic environment and in limited quantities to ensure consistent flavor, freshness, and quality you can trust.",
+    featured: true,
+  },
+  {
+    Icon: Award,
+    title: "No Compromise on Quality",
+    desc: "We never take shortcuts — every pickle is prepared with premium ingredients, attention to detail, and strict quality standards.",
+  },
 ];
 
 export default function WhyUs() {
   return (
-    <section style={{ background: "white", padding: "100px 24px" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+    <section className="whyus-section">
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ textAlign: "center", marginBottom: "70px" }}
+          transition={{ duration: 0.5 }}
+          style={{ textAlign: "center", marginBottom: "44px" }}
         >
-          <p style={{
-            color: "#C9A84C", fontSize: "11px", fontWeight: 900,
-            textTransform: "uppercase", letterSpacing: "0.5em", marginBottom: "12px"
-          }}>
-            Why Choose Us
-          </p>
-          <h2 style={{
-            fontFamily: "Playfair Display, serif",
-            color: "#4A0A12", fontSize: "clamp(32px, 5vw, 52px)",
-            fontWeight: 900, lineHeight: 1.1
-          }}>
-            The Royal Difference
-          </h2>
-          <div style={{
-            width: "80px", height: "4px", borderRadius: "4px",
-            background: "#C9A84C", margin: "20px auto 0"
-          }} />
+          <h2 className="whyus-heading">Why Choose Royale Achaar Pickles?</h2>
+
+          <div className="whyus-divider" aria-hidden="true">
+            <span className="whyus-divider-line" />
+            <span className="whyus-diamond" />
+            <span className="whyus-divider-line" />
+          </div>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "32px"
-        }}>
-          {reasons.map((r, i) => (
+        {/* 4 cards across */}
+        <div className="whyus-grid">
+          {reasons.map(({ Icon, title, desc, featured }, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
+              key={title}
+              className={featured ? "wcard is-featured" : "wcard"}
+              initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -6 }}
-              style={{
-                background: "#FDF6E3",
-                borderRadius: "24px",
-                padding: "36px 28px",
-                border: "1px solid rgba(201,168,76,0.2)",
-                boxShadow: "0 8px 30px rgba(107,15,26,0.06)",
-                cursor: "default",
-                transition: "box-shadow 0.3s"
-              }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div style={{
-                width: "64px", height: "64px", borderRadius: "20px",
-                background: "#4A0A12", display: "flex",
-                alignItems: "center", justifyContent: "center",
-                fontSize: "28px", marginBottom: "20px",
-                boxShadow: "0 10px 20px rgba(74,10,18,0.2)"
-              }}>
-                {r.icon}
+              <span className="wcard-num">{String(i + 1).padStart(2, "0")}</span>
+
+              <div className="wcard-icon">
+                <Icon size={30} strokeWidth={1.5} color={featured ? "#C9A84C" : "#B08F38"} />
               </div>
-              <h3 style={{
-                fontFamily: "Playfair Display, serif",
-                color: "#4A0A12", fontSize: "20px",
-                fontWeight: 700, marginBottom: "10px"
-              }}>
-                {r.title}
-              </h3>
-              <p style={{ color: "#666", lineHeight: 1.7, fontSize: "14px" }}>
-                {r.desc}
-              </p>
+
+              <h3 className="wcard-title">{title}</h3>
+              <p className="wcard-desc">{desc}</p>
             </motion.div>
           ))}
         </div>

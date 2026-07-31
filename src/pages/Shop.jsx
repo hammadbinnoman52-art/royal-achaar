@@ -1,20 +1,55 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductGrid from "../components/ProductGrid";
 import { products } from "../data/products";
 
-export default function Shop() {
-  const categories = ["All", ...new Set(products.map(p => p.category))];
-  const [active, setActive] = useState("All");
+const SORTS = [
+  { key: "featured",   label: "Featured"          },
+  { key: "price-asc",  label: "Price: Low → High" },
+  { key: "price-desc", label: "Price: High → Low" },
+  { key: "rating",     label: "Top Rated"         },
+];
 
-  const filtered = active === "All"
-    ? products
-    : products.filter(p => p.category === active);
+const MAX_PRICE = Math.ceil(Math.max(...products.map(p => p.price)) / 100) * 100;
+
+export default function Shop() {
+  const [searchParams] = useSearchParams();
+  const search = (searchParams.get("search") || "").trim().toLowerCase();
+
+  const [active, setActive] = useState("All Products");
+  const [sort, setSort] = useState("featured");
+  const [maxPrice, setMaxPrice] = useState(MAX_PRICE);
+
+  // category list with live counts
+  const categories = useMemo(() => {
+    const names = [...new Set(products.map(p => p.category))];
+    return [
+      { name: "All Products", count: products.length },
+      ...names.map(name => ({
+        name,
+        count: products.filter(p => p.category === name).length,
+      })),
+    ];
+  }, []);
+
+  const visible = useMemo(() => {
+    const list = products
+      .filter(p => active === "All Products" || p.category === active)
+      .filter(p => p.price <= maxPrice)
+      .filter(p => !search || p.name.toLowerCase().includes(search));
+
+    switch (sort) {
+      case "price-asc":  return [...list].sort((a, b) => a.price - b.price);
+      case "price-desc": return [...list].sort((a, b) => b.price - a.price);
+      case "rating":     return [...list].sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
+      default:           return list;
+    }
+  }, [active, sort, maxPrice, search]);
 
   return (
-    <main style={{ paddingTop: "80px", background: "#FDF6E3", minHeight: "100vh" }}>
+    <main style={{ background: "#FDF6E3", minHeight: "100vh" }}>
 
-      {/* Hero Banner */}
+      {/* Banner */}
       <div style={{
         background: "#4A0A12", padding: "80px 24px",
         textAlign: "center", position: "relative", overflow: "hidden"
@@ -37,35 +72,77 @@ export default function Shop() {
         </h1>
       </div>
 
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "60px 24px 100px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "44px 24px 90px" }}>
+        <div className="shop-layout">
 
-        {/* Category Filters */}
-        <div style={{
-          display: "flex", gap: "12px", flexWrap: "wrap",
-          justifyContent: "center", marginBottom: "56px"
-        }}>
-          {categories.map(cat => (
-            <motion.button
-              key={cat}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setActive(cat)}
-              style={{
-                background: active === cat ? "#4A0A12" : "white",
-                color: active === cat ? "#C9A84C" : "#4A0A12",
-                border: "2px solid " + (active === cat ? "#4A0A12" : "rgba(74,10,18,0.15)"),
-                borderRadius: "40px", padding: "12px 26px",
-                fontWeight: 800, fontSize: "12px",
-                textTransform: "uppercase", letterSpacing: "0.15em",
-                cursor: "pointer", transition: "all 0.3s"
-              }}
-            >
-              {cat}
-            </motion.button>
-          ))}
+          {/* ── Sidebar ── */}
+          <aside>
+            <div className="filter-group">
+              <p className="filter-title">Categories</p>
+              {categories.map(c => (
+                <button
+                  key={c.name}
+                  className={active === c.name ? "cat-btn is-active" : "cat-btn"}
+                  onClick={() => setActive(c.name)}
+                >
+                  <span>{c.name}</span>
+                  <span className="cat-count">{c.count}</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="filter-group">
+              <p className="filter-title">Price Range</p>
+              <div className="price-row">
+                <span>Rs. 0</span>
+                <strong>Rs. {maxPrice.toLocaleString()}</strong>
+              </div>
+              <input
+                type="range"
+                className="price-slider"
+                min={0}
+                max={MAX_PRICE}
+                step={50}
+                value={maxPrice}
+                onChange={e => setMaxPrice(Number(e.target.value))}
+                aria-label="Maximum price"
+              />
+              <p className="price-max">Max: Rs. {MAX_PRICE.toLocaleString()}</p>
+            </div>
+
+            <div className="filter-group">
+              <p className="filter-title">Sort By</p>
+              {SORTS.map(s => (
+                <button
+                  key={s.key}
+                  className={sort === s.key ? "sort-btn is-active" : "sort-btn"}
+                  onClick={() => setSort(s.key)}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </aside>
+
+          {/* ── Results ── */}
+          <section>
+            <div className="shop-toolbar">
+              <p className="shop-count">
+                Showing <strong>{visible.length}</strong> of {products.length} products
+              </p>
+              <label className="shop-sort">
+                Sort by:
+                <select value={sort} onChange={e => setSort(e.target.value)}>
+                  {SORTS.map(s => (
+                    <option key={s.key} value={s.key}>{s.label}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <ProductGrid products={visible} columns={4} />
+          </section>
         </div>
-
-        <ProductGrid products={filtered} />
       </div>
     </main>
   );
