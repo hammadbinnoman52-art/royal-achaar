@@ -646,6 +646,52 @@ code {
   color: #4a2c05;
 }
 
+/* Ghee variant — same layout, warm buttery-gold palette */
+
+.whyus-section.is-ghee {
+  background:
+    radial-gradient(ellipse at 50% -10%, #614107 0%, transparent 60%),
+    linear-gradient(180deg, #3a2a08 0%, #271b03 100%);
+}
+.is-ghee .whyus-heading {
+  color: #f0ce7a;
+}
+.is-ghee .whyus-divider-line {
+  background: linear-gradient(90deg, transparent, rgba(240, 206, 122, 0.75));
+}
+.is-ghee .whyus-divider-line:last-child {
+  background: linear-gradient(90deg, rgba(240, 206, 122, 0.75), transparent);
+}
+.is-ghee .whyus-diamond {
+  background: #f0ce7a;
+}
+
+.is-ghee .wcard {
+  border-color: rgba(240, 206, 122, 0.3);
+}
+.is-ghee .wcard:hover {
+  border-color: #e8b923;
+}
+.is-ghee .wcard.is-featured {
+  border-color: #e8b923;
+  box-shadow:
+    0 0 0 1px rgba(232, 185, 35, 0.45),
+    0 0 40px rgba(232, 185, 35, 0.24),
+    0 26px 55px rgba(0, 0, 0, 0.4);
+}
+.is-ghee .wcard-num {
+  color: rgba(184, 134, 11, 0.6);
+}
+.is-ghee .wcard-icon {
+  background: #fbf3dc;
+}
+.is-ghee .wcard.is-featured .wcard-icon {
+  background: #3a2a08;
+}
+.is-ghee .wcard-title {
+  color: #4a3410;
+}
+
 /* ─────────────────────────────────────────────
    Auth (sign in / register)
    ───────────────────────────────────────────── */

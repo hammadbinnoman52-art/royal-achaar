@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Hero from "../components/Hero";
 import WhyUs from "../components/WhyUs";
-import FeaturedBanner from "../components/FeaturedBanner";
-import Testimonials from "../components/Testimonials";
 import ProductGrid from "../components/ProductGrid";
 import HoneyBanner from "../components/HoneyBanner";
 import HoneyProducts from "../components/HoneyProducts";
 import HoneyWhyUs from "../components/HoneyWhyUs";
+import GheeBanner from "../components/GheeBanner";
+import GheeProducts from "../components/GheeProducts";
+import GheeWhyUs from "../components/GheeWhyUs";
 import { products } from "../data/products";
 
 export default function Home() {
@@ -83,8 +84,10 @@ export default function Home() {
       <HoneyProducts />
       <HoneyWhyUs />
 
-      <FeaturedBanner />
-      <Testimonials />
+      {/* Desi Ghee line — same flow as honey: banner → products → why-choose */}
+      <GheeBanner />
+      <GheeProducts />
+      <GheeWhyUs />
     </main>
   );
 }

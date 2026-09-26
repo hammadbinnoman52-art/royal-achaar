@@ -96,44 +96,34 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Right cluster */}
-          <div className="utility-right" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "12px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "20px", flexWrap: "wrap", justifyContent: "flex-end" }}>
-              <p className="cs-line" style={{ margin: 0, fontSize: "13px", color: "#4A0A12" }}>
-                Customer Service <strong>0311&nbsp;4649627</strong>
-              </p>
-              <form onSubmit={submitSearch} style={{ position: "relative" }}>
-                <input
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                  placeholder="Search pure pickles..."
-                  style={{
-                    width: "220px", padding: "9px 40px 9px 14px",
-                    borderRadius: "6px", border: "1px solid rgba(74,10,18,0.2)",
-                    fontSize: "13px", outline: "none", background: "#FAFAF7"
-                  }}
-                  className="search-input"
-                />
-                <button type="submit" style={{
-                  position: "absolute", right: 0, top: 0, height: "100%",
-                  width: "36px", background: "#4A0A12", border: "none",
-                  borderRadius: "0 6px 6px 0", cursor: "pointer",
-                  display: "flex", alignItems: "center", justifyContent: "center"
-                }}>
-                  <Search size={15} color="white" />
-                </button>
-              </form>
-            </div>
-
-            <p className="free-delivery-badge" style={{
-              margin: 0, background: "#FDF3D8", color: "#4A0A12",
-              border: "1px solid #C9A84C", borderRadius: "6px",
-              padding: "6px 14px", fontSize: "11px", fontWeight: 800,
-              letterSpacing: "0.03em"
+          {/* Search — sits right after the logo */}
+          <form onSubmit={submitSearch} className="nav-search" style={{ position: "relative", flex: "1 1 200px", maxWidth: "360px" }}>
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search pure pickles..."
+              style={{
+                width: "100%", padding: "10px 40px 10px 14px",
+                borderRadius: "6px", border: "1px solid rgba(74,10,18,0.2)",
+                fontSize: "13px", outline: "none", background: "#FAFAF7"
+              }}
+              className="search-input"
+            />
+            <button type="submit" aria-label="Search" style={{
+              position: "absolute", right: "4px", top: 0, height: "100%",
+              width: "32px", background: "none", border: "none", padding: 0,
+              cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center"
             }}>
-              FREE DELIVERY ON ORDERS OVER PKR 2,000/-
-            </p>
+              <Search size={16} color="#4A0A12" />
+            </button>
+          </form>
 
+          {/* Right cluster — cart, wishlist, sign in */}
+          <div className="utility-right" style={{ display: "flex", alignItems: "center", gap: "22px", marginLeft: "auto", flexShrink: 0 }}>
+            <p className="cs-line" style={{ margin: 0, fontSize: "13px", color: "#4A0A12", whiteSpace: "nowrap" }}>
+              Customer Service <strong>0311&nbsp;4649627</strong>
+            </p>
             <div style={{ display: "flex", alignItems: "center", gap: "22px" }}>
               <button onClick={() => setIsOpen(true)} style={{
                 background: "none", border: "none", cursor: "pointer",
@@ -253,14 +243,14 @@ export default function Navbar() {
         .hamburger   { display: none !important; }
         .icon-label  { display: inline; }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .cs-line, .free-delivery-badge, .icon-label { display: none !important; }
         }
 
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .hamburger   { display: block !important; }
-          .search-input { width: 140px !important; }
+          .nav-search  { flex-basis: 100% !important; order: 3; max-width: none !important; }
         }
       `}</style>
     </header>
