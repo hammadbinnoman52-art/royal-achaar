@@ -122,7 +122,7 @@ export default function Navbar() {
           {/* Right cluster — cart, wishlist, sign in */}
           <div className="utility-right" style={{ display: "flex", alignItems: "center", gap: "22px", marginLeft: "auto", flexShrink: 0 }}>
             <p className="cs-line" style={{ margin: 0, fontSize: "13px", color: "#4A0A12", whiteSpace: "nowrap" }}>
-              Customer Service <strong>0311&nbsp;4649627</strong>
+              Customer Service <strong>0333&nbsp;4624242</strong>
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "22px" }}>
               <button onClick={() => setIsOpen(true)} style={{
