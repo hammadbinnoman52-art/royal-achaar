@@ -10,6 +10,15 @@ const SORTS = [
   { key: "rating",     label: "Top Rated"         },
 ];
 
+// On the "All Products" view, products are shown under these section
+// headings in this order. Every pickle category rolls up into "Achaar".
+const GROUP_ORDER = ["Achaar", "Desi Ghee", "Honey"];
+const groupOf = category => {
+  if (category === "Desi Ghee") return "Desi Ghee";
+  if (category === "Honey") return "Honey";
+  return "Achaar";
+};
+
 const MAX_PRICE = Math.ceil(Math.max(...products.map(p => p.price)) / 100) * 100;
 
 export default function Shop() {
@@ -140,7 +149,24 @@ export default function Shop() {
               </label>
             </div>
 
-            <ProductGrid products={visible} columns={4} />
+            {active === "All Products" && visible.length > 0 ? (
+              GROUP_ORDER.map(g => {
+                const items = visible.filter(p => groupOf(p.category) === g);
+                if (!items.length) return null;
+                return (
+                  <div key={g} className="shop-group">
+                    <div className="shop-group-head">
+                      <h2 className="shop-group-title">{g}</h2>
+                      <span className="shop-group-rule" />
+                      <span className="shop-group-count">{items.length}</span>
+                    </div>
+                    <ProductGrid products={items} columns={3} />
+                  </div>
+                );
+              })
+            ) : (
+              <ProductGrid products={visible} columns={3} />
+            )}
           </section>
         </div>
       </div>

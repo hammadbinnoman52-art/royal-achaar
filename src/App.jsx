@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import About from "./pages/About";
+import Reviews from "./pages/Reviews";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/shop"        element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/about"       element={<About />} />
+          <Route path="/reviews"     element={<Reviews />} />
           <Route path="/contact"     element={<Contact />} />
           <Route path="/signin"      element={<Auth />} />
         </Routes>

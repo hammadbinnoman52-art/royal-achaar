@@ -152,6 +152,11 @@ code {
   overflow: hidden;
   background: #2d0509;
 }
+/* Shop cards sit 3 to a row, so they're wider — a shorter image area
+   keeps the card from getting too tall. */
+.shop-layout .pcard-media {
+  aspect-ratio: 4 / 3;
+}
 .pcard-media-link {
   display: block;
   position: absolute;
@@ -446,6 +451,39 @@ code {
 .shop-count strong {
   color: #4a0a12;
   font-weight: 800;
+}
+
+/* Section groups on the "All Products" view (Achaar / Desi Ghee / Honey) */
+.shop-group {
+  margin-bottom: 54px;
+}
+.shop-group:last-child {
+  margin-bottom: 0;
+}
+.shop-group-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.shop-group-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: clamp(22px, 3vw, 32px);
+  color: #4a0a12;
+  margin: 0;
+  white-space: nowrap;
+}
+.shop-group-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(74, 10, 18, 0.22), transparent);
+}
+.shop-group-count {
+  font-size: 12px;
+  font-weight: 800;
+  color: #c9a84c;
+  letter-spacing: 0.12em;
 }
 .shop-sort {
   display: flex;
