@@ -18,7 +18,7 @@ export const reviewVideos = [
     src: "/reviews/review-1.mp4",
     poster: null,
     orientation: "portrait",
-    name: "Narmeen.",
+    name: "Nimra.",
     location: "Gujranwala",
     quote: "The mango achaar tastes just like my grandmother used to make.",
   },
